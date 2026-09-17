@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <title>Florida Real Estate Test Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Literata:opsz,wght@7..72,600;7..72,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f7f2;
+      --surface: #ffffff;
+      --surface-2: #eaf0e8;
+      --ink: #132a2a;
+      --muted: #526664;
+      --line: #cbd7d2;
+      --teal: #006b63;
+      --teal-strong: #00534d;
+      --teal-soft: #d5ece7;
+      --coral: #e3624a;
+      --coral-soft: #fde2dc;
+      --gold: #ba7c13;
+      --good: #16704d;
+      --bad: #b33b36;
+      --shadow: 0 16px 40px rgba(19, 42, 42, .09);
+      --radius-lg: 24px;
+      --radius-md: 15px;
+      --nav-h: 72px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101918;
+        --surface: #172321;
+        --surface-2: #20302d;
+        --ink: #edf6f1;
+        --muted: #b5c8c2;
+        --line: #354944;
+        --teal: #67c8b8;
+        --teal-strong: #9be1d5;
+        --teal-soft: #183b36;
+        --coral: #ff8b73;
+        --coral-soft: #462a25;
+        --gold: #e5b35a;
+        --good: #6fd2a4;
+        --bad: #ff9b92;
+        --shadow: 0 18px 50px rgba(0, 0, 0, .24);
+      }
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 0;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      line-height: 1.55;
+    }
+    button, input, select { font: inherit; }
+    button, select { color: inherit; }
+    a { color: var(--teal-strong); text-underline-offset: 3px; }
+    button { -webkit-tap-highlight-color: transparent; }
+    .shell { min-height: 100vh; }
+    .rail {
+      display: none;
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: 250px;
+      padding: 28px 18px;
+      background: var(--surface);
+      border-right: 1px solid var(--line);
+    }
+    .rail-copy {
+      margin: 0 10px 24px;
+      color: var(--muted);
+      font-size: .91rem;
+    }
+    .rail nav { display: grid; gap: 8px; }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      padding: 13px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+    }
+    .nav-btn svg { width: 21px; height: 21px; flex: 0 0 auto; }
+    .nav-btn[aria-selected="true"] { background: var(--teal-soft); color: var(--teal-strong); }
+    .rail-fact {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 28px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .83rem;
+    }
+    main { width: min(1050px, 100%); margin: 0 auto; padding: 22px 18px calc(var(--nav-h) + 32px); }
+    .view { display: none; }
+    .view.active { display: block; animation: appear .18s ease-out; }
+    @keyframes appear { from { opacity: .55; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .view.active { animation: none; } }
+    .hero {
+      display: grid;
+      gap: 24px;
+      padding: 30px 26px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -38px;
+      top: -36px;
+      width: 136px;
+      height: 136px;
+      border: 26px solid var(--coral-soft);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    h1, h2, h3 { font-family: "Literata", Georgia, serif; line-height: 1.12; margin: 0; }
+    h1 { font-size: clamp(2.15rem, 7vw, 4.5rem); letter-spacing: -.045em; max-width: 800px; }
+    h2 { font-size: clamp(1.55rem, 4vw, 2.35rem); letter-spacing: -.025em; }
+    h3 { font-size: 1.12rem; }
+    .lead { max-width: 680px; margin: 14px 0 0; color: var(--muted); font-size: 1.05rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .button {
+      border: 1px solid transparent;
+      border-radius: 11px;
+      padding: 11px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--teal);
+      color: #fff;
+    }
+    @media (prefers-color-scheme: dark) { .button { color: #0d211e; } }
+    .button.secondary { background: transparent; color: var(--teal-strong); border-color: var(--line); }
+    .button.coral { background: var(--coral); color: #fff; }
+    .button:focus-visible, .nav-btn:focus-visible, .module-toggle:focus-visible, .card-flip:focus-visible, .card-next:focus-visible, .answer:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    .exam-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--ink);
+      color: var(--bg);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .exam-stat { padding: 16px; text-align: center; }
+    .exam-stat + .exam-stat { border-left: 1px solid color-mix(in srgb, var(--bg) 24%, transparent); }
+    .exam-stat strong { display: block; font-size: 1.45rem; line-height: 1.1; }
+    .exam-stat span { font-size: .72rem; opacity: .8; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 38px 2px 16px; }
+    .section-head p { margin: 0; color: var(--muted); max-width: 580px; }
+    .progress-card {
+      background: var(--teal-soft);
+      padding: 18px;
+      border-radius: var(--radius-md);
+      margin-top: 18px;
+    }
+    .progress-row { display: flex; justify-content: space-between; gap: 16px; font-weight: 600; font-size: .91rem; }
+    .progress-track { height: 9px; background: color-mix(in srgb, var(--teal) 18%, var(--surface)); border-radius: 99px; overflow: hidden; margin-top: 10px; }
+    .progress-fill { height: 100%; width: 0; background: var(--teal); transition: width .25s ease; }
+    .weight-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .weight-item { background: var(--surface); border: 1px solid var(--line); padding: 14px 15px; border-radius: 13px; }
+    .weight-line { display: flex; justify-content: space-between; gap: 10px; font-weight: 600; }
+    .weight-line span:last-child { color: var(--coral); }
+    .mini-bar { height: 5px; border-radius: 99px; margin-top: 9px; background: var(--surface-2); overflow: hidden; }
+    .mini-bar i { display: block; height: 100%; background: var(--coral); }
+    .modules { display: grid; gap: 11px; }
+    .module { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+    .module-toggle {
+      width: 100%;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 14px;
+      align-items: center;
+      border: 0;
+      padding: 18px;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+    .module-num { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--surface-2); color: var(--teal-strong); font-weight: 700; }
+    .module-title small { display: block; color: var(--muted); font-weight: 400; margin-top: 3px; }
+    .chev { transition: transform .2s ease; }
+    .module.open .chev { transform: rotate(180deg); }
+    .module-body { display: none; padding: 0 18px 20px 66px; }
+    .module.open .module-body { display: block; }
+    .module-body p { margin: 0 0 13px; }
+    .lesson-status { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: .78rem; font-weight: 600; }
+    .lesson-status.passed { color: var(--good); }
+    .lesson-quiz { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .lesson-quiz h4 { margin: 0 0 5px; font-family: "Literata", Georgia, serif; font-size: 1.02rem; }
+    .lesson-quiz > p { color: var(--muted); font-size: .88rem; }
+    .lesson-question { padding: 14px 0; }
+    .lesson-question + .lesson-question { border-top: 1px solid var(--line); }
+    .lesson-question strong { display: block; margin-bottom: 9px; }
+    .lesson-options { display: grid; gap: 7px; }
+    .lesson-option { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+    .lesson-option.selected { background: var(--teal-soft); border-color: var(--teal); }
+    .lesson-option:focus-visible, .lesson-submit:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .lesson-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+    .lesson-feedback { margin: 0; font-weight: 600; }
+    .lesson-feedback.good { color: var(--good); }
+    .lesson-feedback.bad { color: var(--bad); }
+    .study-points { margin: 0; padding-left: 19px; }
+    .study-points li { margin: 7px 0; }
+    .memory-box { margin-top: 15px; padding: 14px 15px; background: var(--teal-soft); border-radius: 10px; }
+    .memory-box strong { color: var(--teal-strong); }
+    .formula-grid { display: grid; gap: 8px; margin-top: 15px; }
+    .formula { display: flex; justify-content: space-between; gap: 14px; background: var(--surface-2); padding: 11px 13px; border-radius: 9px; }
+    .formula code { color: var(--teal-strong); font-weight: 700; white-space: normal; text-align: right; }
+    .plan-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+    .day { background: var(--surface); border: 1px solid var(--line); padding: 15px; border-radius: 13px; }
+    .day strong { display: block; color: var(--coral); margin-bottom: 6px; }
+    .day span { color: var(--muted); font-size: .87rem; }
+    .source-box { margin-top: 34px; padding: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
+    .source-box p { margin: 0 0 9px; }
+    .source-links { display: flex; flex-wrap: wrap; gap: 10px 18px; }
+    .topline { margin-bottom: 24px; }
+    .topline p { color: var(--muted); margin: 9px 0 0; }
+    .study-controls { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+    select {
+      min-height: 44px;
+      padding: 9px 38px 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+    .card-stage { min-height: 390px; display: grid; place-items: center; }
+    .flashcard {
+      width: min(680px, 100%);
+      min-height: 330px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      color: inherit;
+      text-align: left;
+      position: relative;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .flashcard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 7px; background: var(--coral); border-radius: 26px 26px 0 0; }
+    .card-content { min-height: 270px; }
+    .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .card-topic { display: inline-block; color: var(--teal-strong); background: var(--teal-soft); padding: 5px 9px; border-radius: 8px; font-size: .76rem; font-weight: 700; }
+    .card-position { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; }
+    .card-face { display: grid; align-content: start; min-height: 240px; padding: 24px 0 48px; }
+    .card-term { font-family: "Literata", Georgia, serif; font-size: clamp(1.45rem, 5vw, 2.25rem); line-height: 1.16; letter-spacing: -.025em; margin: 0 0 18px; }
+    .card-answer { display: block; font-size: clamp(1.05rem, 3vw, 1.18rem); line-height: 1.65; max-width: 580px; }
+    .card-hint { position: absolute; left: 30px; bottom: 22px; color: var(--muted); font-size: .82rem; }
+    .card-next {
+      position: absolute;
+      right: 18px;
+      bottom: 14px;
+      min-height: 44px;
+      border: 0;
+      border-radius: 10px;
+      padding: 9px 13px;
+      background: var(--teal);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    @media (prefers-color-scheme: dark) { .card-next { color: #0d211e; } }
+    .deck-controls { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .counter { min-width: 84px; text-align: center; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .quiz-start, .quiz-panel, .results { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(20px, 5vw, 36px); box-shadow: var(--shadow); }
+    .quiz-start { display: grid; gap: 20px; }
+    .option-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .choice-tile { border: 1px solid var(--line); border-radius: 12px; padding: 14px; cursor: pointer; background: var(--surface); }
+    .choice-tile input { accent-color: var(--teal); }
+    .quiz-meta { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 18px; color: var(--muted); font-weight: 600; }
+    .timer { color: var(--coral); font-variant-numeric: tabular-nums; }
+    .q-progress { height: 7px; background: var(--surface-2); border-radius: 99px; overflow: hidden; margin-bottom: 26px; }
+    .q-progress span { display: block; height: 100%; background: var(--teal); transition: width .2s ease; }
+    .question { font-family: "Literata", Georgia, serif; font-size: clamp(1.3rem, 4vw, 1.85rem); line-height: 1.3; margin-bottom: 22px; }
+    .answers { display: grid; gap: 9px; }
+    .answer { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start; width: 100%; padding: 14px 15px; border: 1px solid var(--line); border-radius: 12px; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+    .answer:hover { border-color: var(--teal); }
+    .answer.selected { background: var(--teal-soft); border-color: var(--teal); }
+    .letter { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--surface-2); font-weight: 700; font-size: .82rem; }
+    .quiz-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
+    .question-dots { display: grid; grid-template-columns: repeat(auto-fill, minmax(28px, 1fr)); gap: 7px; margin-top: 18px; }
+    .dot { width: 100%; min-width: 0; height: 28px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--muted); font-size: .69rem; cursor: pointer; }
+    .dot.done { background: var(--teal-soft); color: var(--teal-strong); border-color: var(--teal); }
+    .dot.here { outline: 2px solid var(--coral); outline-offset: 2px; }
+    .score-ring { width: 142px; height: 142px; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--teal) var(--score), var(--surface-2) 0); margin: 0 auto 20px; position: relative; }
+    .score-ring::after { content: ""; position: absolute; inset: 13px; border-radius: 50%; background: var(--surface); }
+    .score-ring strong { position: relative; z-index: 1; font-size: 2rem; }
+    .result-title { text-align: center; }
+    .result-title p { color: var(--muted); }
+    .review-list { display: grid; gap: 10px; margin-top: 28px; }
+    .review-item { padding: 15px; background: var(--surface-2); border-radius: 12px; }
+    .review-item.correct { border-left: 4px solid var(--good); }
+    .review-item.wrong { border-left: 4px solid var(--bad); }
+    .review-item strong { display: block; margin-bottom: 6px; }
+    .review-item p { margin: 5px 0; color: var(--muted); font-size: .92rem; }
+    .bottom-nav {
+      position: fixed;
+      z-index: 20;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      min-height: var(--nav-h);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 7px max(8px, env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom));
+      background: color-mix(in srgb, var(--surface) 94%, transparent);
+      border-top: 1px solid var(--line);
+    }
+    .bottom-nav .nav-btn { flex-direction: column; justify-content: center; gap: 3px; padding: 5px; border-radius: 10px; font-size: .73rem; text-align: center; }
+    .bottom-nav .nav-btn svg { width: 20px; height: 20px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (min-width: 860px) {
+      .rail { display: block; }
+      .bottom-nav { display: none; }
+      main { margin-left: 250px; width: auto; max-width: 1200px; padding: 44px 48px 80px; }
+      .hero { grid-template-columns: 1fr 300px; align-items: end; padding: 48px; }
+      .exam-strip { grid-column: 2; grid-row: 1; align-self: stretch; grid-template-columns: 1fr; }
+      .exam-stat { display: flex; align-items: center; justify-content: space-between; text-align: left; padding: 18px 20px; }
+      .exam-stat + .exam-stat { border-left: 0; border-top: 1px solid color-mix(in srgb, var(--bg) 24%, transparent); }
+      .exam-stat strong { font-size: 1.7rem; }
+      .hero-actions { grid-column: 1; }
+      .weight-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
+      .hero { padding: 26px 20px; }
+      .hero::after { width: 104px; height: 104px; border-width: 20px; }
+      .exam-strip { margin-top: 4px; }
+      .exam-stat { padding: 13px 7px; }
+      .exam-stat strong { font-size: 1.2rem; }
+      .weight-grid, .option-row { grid-template-columns: 1fr; }
+      .plan-grid { grid-template-columns: 1fr 1fr; }
+      .plan-grid .day:last-child { grid-column: 1 / -1; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 8px; }
+      .module-toggle { grid-template-columns: auto 1fr auto; padding: 15px; gap: 10px; }
+      .module-body { padding: 0 15px 18px; }
+      .flashcard { min-height: 360px; padding: 24px 22px; }
+      .card-stage { min-height: 405px; }
+      .card-hint { left: 22px; max-width: calc(100% - 138px); }
+      .card-next { right: 12px; bottom: 11px; }
+      .quiz-actions .button { flex: 1; }
+      .formula { display: grid; gap: 3px; }
+      .formula code { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="rail" aria-label="Main navigation">
+    <p class="rail-copy">Work through the course, master the terms, then test your pacing.</p>
+    <nav id="desktopNav"></nav>
+    <div class="rail-fact"><strong>Official format:</strong><br>100 questions · 3½ hours · 75 points to pass</div>
+  </aside>
+
+  <main>
+    <section id="studyView" class="view active" aria-labelledby="studyTitle">
+      <div class="hero">
+        <div>
+          <h1 id="studyTitle">Your complete review course.</h1>
+          <p class="lead">Follow 19 lessons in order, pass each lesson quiz, drill key terms, and finish with a full 100-question mock exam.</p>
+        </div>
+        <div class="exam-strip" aria-label="Official exam format">
+          <div class="exam-stat"><strong>100</strong><span>multiple-choice questions</span></div>
+          <div class="exam-stat"><strong>3½ hr</strong><span>closed-book exam</span></div>
+          <div class="exam-stat"><strong>75+</strong><span>points to pass</span></div>
+        </div>
+        <div class="hero-actions">
+          <button class="button" data-go="flashcards">Review flashcards</button>
+          <button class="button secondary" data-go="practice">Take a practice test</button>
+        </div>
+      </div>
+
+      <div class="progress-card" aria-live="polite">
+        <div class="progress-row"><span>Lesson quizzes passed this session</span><span id="studyProgressText">0 of 19</span></div>
+        <div class="progress-track"><div class="progress-fill" id="studyProgress"></div></div>
+      </div>
+
+      <div class="section-head">
+        <div><h2>Start with the biggest slices</h2><p>The official outline covers 19 areas. These six alone account for 56% of the exam.</p></div>
+      </div>
+      <div class="weight-grid" id="weightGrid"></div>
+
+      <div class="section-head">
+        <div><h2>19-lesson course</h2><p>Study in order. Each lesson ends with a three-question knowledge check; score at least 2 of 3 to mark it complete.</p></div>
+      </div>
+      <div class="modules" id="modules"></div>
+
+      <div class="section-head">
+        <div><h2>A five-day final review</h2><p>Short passes beat one exhausting cram session.</p></div>
+      </div>
+      <div class="plan-grid">
+        <div class="day"><strong>Day 1</strong><span>License law, relationships, and FREC/DBPR roles.</span></div>
+        <div class="day"><strong>Day 2</strong><span>Brokerage operations, escrow, violations, and ethics.</span></div>
+        <div class="day"><strong>Day 3</strong><span>Property rights, deeds, contracts, and legal descriptions.</span></div>
+        <div class="day"><strong>Day 4</strong><span>Mortgages, appraisal, taxes, and every formula.</span></div>
+        <div class="day"><strong>Day 5</strong><span>Timed test, review misses, then light flashcards only.</span></div>
+      </div>
+
+      <div class="source-box">
+        <p><strong>Use this as review, not as a substitute for your required pre-license course.</strong> Exam format and topic weights follow Florida DBPR's Sales Associate Candidate Information Booklet, effective January 2025. Laws and rules can change.</p>
+        <div class="source-links">
+          <a href="https://www2.myfloridalicense.com/servop/testing/documents/RE_sales_cibs.pdf" target="_blank" rel="noopener">Official candidate booklet</a>
+          <a href="http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0475/0475.html" target="_blank" rel="noopener">Florida Statutes, Chapter 475</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="flashcardsView" class="view" aria-label="Flashcards">
+      <div class="card-stage">
+        <article class="flashcard" id="flashcard" aria-live="polite">
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="card-topic" id="cardTopic"></span>
+              <span class="card-position" id="cardPosition"></span>
+            </div>
+            <div class="card-face">
+              <h2 class="card-term" id="cardTerm"></h2>
+              <div class="card-answer" id="cardAnswer"></div>
+            </div>
+          </div>
+          <span class="card-hint" id="cardHint">Swipe to browse</span>
+          <button class="card-next" id="cardNext" type="button" aria-label="Next flashcard">Next →</button>
+        </article>
+      </div>
+      <div class="study-controls">
+        <label for="category" class="sr-only">Flashcard category</label>
+        <select id="category"><option value="All">All topics</option></select>
+        <button class="button secondary" id="shuffleCards">Shuffle deck</button>
+      </div>
+      <div class="deck-controls">
+        <button class="button secondary" id="prevCard" aria-label="Previous flashcard">Previous</button>
+        <span class="counter" id="cardCounter"></span>
+        <button class="button" id="nextCard" aria-label="Next flashcard">Next</button>
+      </div>
+    </section>
+
+    <section id="practiceView" class="view" aria-labelledby="practiceTitle">
+      <div class="topline"><h1 id="practiceTitle">Practice under pressure.</h1><p>All questions are original review items, not copied state exam questions.</p></div>
+      <div class="quiz-start" id="quizStart">
+        <div><h2>Choose a test</h2><p class="lead">The full mock has 100 questions, a 3 hour 30 minute timer, and the same 75-correct passing target as the Florida Sales Associate exam.</p></div>
+        <div class="option-row">
+          <label class="choice-tile"><input type="radio" name="length" value="10"> Quick check · 10 questions · 21 min</label>
+          <label class="choice-tile"><input type="radio" name="length" value="25"> Study test · 25 questions · 52½ min</label>
+          <label class="choice-tile"><input type="radio" name="length" value="100" checked> Full mock exam · 100 questions · 3½ hr</label>
+        </div>
+        <label class="choice-tile"><input type="checkbox" id="timed" checked> Use exam-paced timer</label>
+        <button class="button coral" id="startQuiz">Start test</button>
+      </div>
+      <div class="quiz-panel" id="quizPanel" hidden>
+        <div class="quiz-meta"><span id="questionCount"></span><span class="timer" id="timer"></span></div>
+        <div class="q-progress"><span id="questionProgress"></span></div>
+        <div class="question" id="questionText"></div>
+        <div class="answers" id="answers"></div>
+        <div class="question-dots" id="questionDots" aria-label="Question navigation"></div>
+        <div class="quiz-actions">
+          <button class="button secondary" id="prevQuestion">Back</button>
+          <button class="button" id="nextQuestion">Next</button>
+        </div>
+      </div>
+      <div class="results" id="results" hidden></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" id="mobileNav" aria-label="Main navigation"></nav>
+</div>
+
+<script>
+const navItems = [
+  { id: 'study', label: 'Course', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg>' },
+  { id: 'flashcards', label: 'Flashcards', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="6" width="15" height="13" rx="2"/><path d="M7 3h11a2 2 0 0 1 2 2v10"/><path d="M8 11h7M8 15h4"/></svg>' },
+  { id: 'practice', label: 'Practice test', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 4h8l2 2v15H6V6z"/><path d="M9 10h6M9 14h6M9 18h4"/><path d="M9 4v3h6V4"/></svg>' }
+];
+function buildNav(target) {
+  target.innerHTML = navItems.map(item => `<button class="nav-btn" data-view="${item.id}" aria-selected="${item.id === 'study'}">${item.icon}<span>${item.label}</span></button>`).join('');
+}
+buildNav(document.getElementById('desktopNav'));
+buildNav(document.getElementById('mobileNav'));
+
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === id + 'View'));
+  document.querySelectorAll('[data-view]').forEach(b => b.setAttribute('aria-selected', b.dataset.view === id));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+document.addEventListener('click', e => {
+  const nav = e.target.closest('[data-view]');
+  if (nav) showView(nav.dataset.view);
+  const go = e.target.closest('[data-go]');
+  if (go) showView(go.dataset.go);
+});
+
+const weights = [
+  ['Brokerage activities & procedures', 12],
+  ['Real estate contracts', 12],
+  ['Residential mortgages', 9],
+  ['Property rights & tenancies', 8],
+  ['Real estate appraisal', 8],
+  ['Titles, deeds & restrictions', 7]
+];
+document.getElementById('weightGrid').innerHTML = weights.map(([name, pct]) => `<div class="weight-item"><div class="weight-line"><span>${name}</span><span>${pct}%</span></div><div class="mini-bar"><i style="width:${pct / 12 * 100}%"></i></div></div>`).join('');
+
+const modules = [{"title":"The real estate business","sub":"Roles, specialties, markets, and professional standards","body":"<p>Real estate is more than sales. The industry includes brokerage, property management, appraisal, financing, development, construction, counseling, and education.</p><ul class=\"study-points\"><li><strong>Residential</strong> typically means property intended for one to four families. Commercial, industrial, agricultural, and special-purpose property use different market evidence and expertise.</li><li>Supply is slow to change because land is fixed and construction takes time. Demand responds to population, employment, credit, and household income.</li><li>A license allows brokerage activity; it does not make the licensee an attorney, appraiser, surveyor, inspector, or tax adviser.</li></ul><div class=\"memory-box\"><strong>Exam lens:</strong> Identify which professional is qualified for the task before choosing an answer.</div>","quiz":[{"q":"Which service is part of the real estate industry?","a":["Title insurance only","Property management","Court administration"],"c":1,"x":"Property management is a real estate specialty."},{"q":"A licensee asked to give a legal opinion about title should:","a":["Give the opinion if experienced","Refer the person to an attorney","Use a CMA instead"],"c":1,"x":"A real estate license does not authorize the practice of law."},{"q":"Which factor most directly increases housing demand?","a":["Population and job growth","A longer legal description","A recorded easement"],"c":0,"x":"Population, employment, credit, and income help drive demand."}]},{"title":"License law and qualifications","sub":"Licensure, education, status, and renewal","body":"<p>Chapter 475, Part I governs Florida brokers, sales associates, and real estate schools. Chapter 61J2 contains FREC rules.</p><ul class=\"study-points\"><li>A sales associate must be at least 18, hold a high school diploma or equivalent, meet honesty requirements, complete the required prelicense education, apply, and pass the state exam.</li><li>A sales associate performs brokerage services under a registered employer and may be compensated only by that employer.</li><li><strong>Active</strong> means properly registered to work. <strong>Voluntary inactive</strong> is chosen by the licensee. <strong>Involuntary inactive</strong> can result from missing renewal requirements.</li><li>Florida requires post-license education before the first renewal; continuing education applies in later cycles.</li></ul><div class=\"memory-box\"><strong>Remember:</strong> A license and an active registration are not the same thing.</div>","quiz":[{"q":"Who may directly compensate a sales associate for brokerage work?","a":["The buyer","The employer broker","The closing agent"],"c":1,"x":"A sales associate is compensated through the registered employer broker."},{"q":"Which source contains Florida real estate license law?","a":["Chapter 475, Part I","Chapter 83 only","The local zoning code"],"c":0,"x":"Chapter 475, Part I is the principal license statute."},{"q":"A licensee who chooses not to practice may request which status?","a":["Voluntary inactive","Revoked","Null and void"],"c":0,"x":"Voluntary inactive status is selected by the licensee."}]},{"title":"FREC, DBPR, and discipline","sub":"Administration, rulemaking, and due process","body":"<p>The <strong>DBPR</strong> is the state department. The <strong>Division of Real Estate</strong> provides administrative support. <strong>FREC</strong> adopts rules, sets education standards, and disciplines licensees.</p><ul class=\"study-points\"><li>FREC has seven members: four licensed brokers with qualifying experience, one broker or sales associate, and two consumer members.</li><li>A complaint may be investigated, found legally sufficient, reviewed by a probable-cause panel, and resolved through a hearing or settlement.</li><li>Discipline can include reprimand, fine, probation, suspension, or revocation. A licensee receives notice and an opportunity for due process.</li></ul><div class=\"memory-box\"><strong>Memory hook:</strong> DBPR = department; DRE = support; FREC = profession-specific commission.</div>","quiz":[{"q":"Which body adopts rules for Florida real estate licensees?","a":["FREC","A local MLS","The county property appraiser"],"c":0,"x":"FREC adopts rules and handles profession-specific discipline."},{"q":"How many members serve on FREC?","a":["Five","Seven","Nine"],"c":1,"x":"FREC has seven members."},{"q":"What must generally occur before discipline is imposed?","a":["Due process","A civil jury verdict in every case","Approval by an MLS"],"c":0,"x":"Administrative discipline requires notice and an opportunity for due process."}]},{"title":"Brokerage relationships","sub":"Transaction broker, single agent, and no brokerage","body":"<p>Florida presumes transaction brokerage unless another relationship is established in writing or the law provides otherwise. Read the relationship first; duties follow from it.</p><ul class=\"study-points\"><li><strong>Transaction broker:</strong> limited representation, skill and care, accounting, timely presentation, limited confidentiality, and required material-fact disclosure.</li><li><strong>Single agent:</strong> fiduciary duties including loyalty, confidentiality, obedience, full disclosure, and accounting.</li><li><strong>No brokerage relationship:</strong> honest dealing, accounting for funds, and disclosure of known residential facts that materially affect value and are not readily observable.</li><li>A single agent may transition to transaction brokerage only with the principal's prior written consent.</li></ul><div class=\"memory-box\"><strong>Signal words:</strong> undivided loyalty = single agent; limited representation = transaction broker.</div>","quiz":[{"q":"Which relationship includes undivided loyalty?","a":["Single agent","Transaction broker","No brokerage relationship"],"c":0,"x":"Loyalty is a fiduciary duty of a single agent."},{"q":"A transaction broker provides:","a":["No services","Limited representation","Full fiduciary representation"],"c":1,"x":"Transaction brokerage is limited, nonfiduciary representation."},{"q":"A transition from single agent to transaction broker requires:","a":["Prior written consent","Only oral notice","No notice"],"c":0,"x":"The principal must give prior written consent."}]},{"title":"Brokerage activities and procedures","sub":"Advertising, escrow, compensation, and records","body":"<p>Brokerage operations questions test who controls money, whose name appears, and which records must be kept.</p><ul class=\"study-points\"><li>Advertising must not be false, deceptive, or misleading. The registered brokerage name must be disclosed as required; a blind ad hides the brokerage identity.</li><li><strong>Commingling</strong> is mixing entrusted funds with the broker's funds. <strong>Conversion</strong> is unauthorized use of another's funds.</li><li>Escrow deposits go to an authorized depository or permitted attorney/title company. The broker follows statutory notice and settlement procedures when parties dispute a deposit.</li><li>A sales associate's compensation agreement is with the employer broker, including compensation from a cooperating transaction.</li></ul><div class=\"memory-box\"><strong>Memory hook:</strong> Mix = commingling. Use = conversion.</div>","quiz":[{"q":"An ad that conceals the brokerage identity is called:","a":["A blind ad","Institutional advertising","A net listing"],"c":0,"x":"A blind ad fails to identify the brokerage as required."},{"q":"Unauthorized use of escrow money is:","a":["Commingling","Conversion","Novation"],"c":1,"x":"Conversion is unauthorized use; commingling is mixing."},{"q":"A sales associate may sue which party for an unpaid commission?","a":["The seller","The employer broker","The buyer"],"c":1,"x":"The compensation relationship is between the associate and employer broker."}]},{"title":"Violations, penalties, and ethics","sub":"Antitrust, fair dealing, and prohibited conduct","body":"<p>License law protects the public. Exam questions often distinguish an administrative violation from civil liability or a criminal offense.</p><ul class=\"study-points\"><li>FREC may impose administrative penalties within its authority. Courts impose criminal penalties, and civil courts award damages.</li><li>Price fixing, market allocation, group boycotts, and tying arrangements are federal antitrust red flags.</li><li>Fraud is intentional misrepresentation or concealment of a material fact. Misrepresentation may also be negligent. Puffing is an opinion, not a false statement of material fact.</li><li>Licensees must not conceal known facts that materially affect the value of residential property and are not readily observable.</li></ul><div class=\"memory-box\"><strong>Exam move:</strong> Ask who has authority: FREC, a criminal court, or a civil court.</div>","quiz":[{"q":"Competing brokers agree to charge the same commission. This is:","a":["Price fixing","Puffing","Novation"],"c":0,"x":"Competitors may not agree on prices or commission rates."},{"q":"Who can impose imprisonment for a criminal offense?","a":["FREC","A court","A local association"],"c":1,"x":"Criminal penalties are imposed through the court system."},{"q":"A false statement made knowingly to induce action is most likely:","a":["Fraud","Puffing","An easement"],"c":0,"x":"Intentional material misrepresentation is fraud."}]},{"title":"Federal and state property laws","sub":"Fair housing, accessibility, and protected classes","body":"<p>Federal fair housing law prohibits discrimination in covered housing based on race, color, religion, sex, national origin, familial status, or disability. Florida law adds protections under state law.</p><ul class=\"study-points\"><li><strong>Steering</strong> directs buyers toward or away from areas based on protected class. <strong>Blockbusting</strong> induces sales through fear of demographic change. <strong>Redlining</strong> denies or limits financing by area.</li><li>Advertising may not express an illegal preference or limitation. Reasonable accommodations change rules or services; reasonable modifications change the physical premises.</li><li>Federal exemptions are narrow and do not create permission for discriminatory advertising.</li></ul><div class=\"memory-box\"><strong>Three verbs:</strong> steer people, scare owners, outline lending areas.</div>","quiz":[{"q":"Directing buyers to neighborhoods based on familial status is:","a":["Steering","Novation","Assemblage"],"c":0,"x":"Steering channels people based on protected characteristics."},{"q":"Refusing loans because a property is in a mapped area is:","a":["Redlining","Blockbusting","Puffing"],"c":0,"x":"Redlining is discriminatory lending based on location."},{"q":"A change to a no-pets policy for an assistance animal is generally a:","a":["Reasonable accommodation","Physical modification","Tie-in arrangement"],"c":0,"x":"An accommodation changes a rule, policy, or service."}]},{"title":"Property rights, estates & co-ownership","sub":"The bundle of rights, estates, tenancies, condos, and cooperatives","body":"<p>Ownership is a bundle of rights: possession, control, enjoyment, exclusion, and disposition, subject to government powers and private restrictions.</p><ul class=\"study-points\"><li><strong>Fee simple</strong> is the broadest private estate. A <strong>life estate</strong> lasts for a named life and ends in a remainder or reversion.</li><li>Leasehold estates include estate for years, tenancy at will, and tenancy at sufferance. An estate for years has a definite beginning and ending date.</li><li>Government powers are remembered as <strong>PETE</strong>: police power, eminent domain, taxation, and escheat.</li><li>Fixtures began as personal property but became attached with intent to remain; trade fixtures are generally removable by a commercial tenant on time.</li><li><strong>Tenancy in common</strong> has no survivorship; joint tenancy may include survivorship; tenancy by the entireties is for married spouses.</li><li>A condominium buyer owns a unit plus common elements; a cooperative buyer owns shares plus a proprietary lease.</li></ul><div class=\"memory-box\"><strong>Memory hook:</strong> PETE limits private ownership.</div>","quiz":[{"q":"Which is the broadest private ownership estate?","a":["Fee simple","Estate for years","Tenancy at sufferance"],"c":0,"x":"Fee simple is the broadest private estate."},{"q":"Which co-ownership permits unequal shares and has no survivorship?","a":["Tenancy in common","Tenancy by the entireties","Joint tenancy with survivorship"],"c":0,"x":"Tenancy in common allows unequal interests and no automatic survivorship."},{"q":"A cooperative resident usually owns:","a":["A deeded unit","Corporate shares and a proprietary lease","Only an easement"],"c":1,"x":"Co-op ownership is stock plus the right to occupy a unit."}]},{"title":"Title, deeds, and restrictions","sub":"Transfer, notice, liens, and limits on use","body":"<p>Title is the legal concept of ownership; a deed is the instrument used to transfer title.</p><ul class=\"study-points\"><li>A valid deed generally identifies grantor and grantee, contains consideration and a legal description, has granting words, and is signed by a competent grantor. Florida deeds generally require two subscribing witnesses.</li><li>A general warranty deed gives broad covenants; a special warranty deed limits warranties to the grantor's period; a quitclaim deed conveys whatever interest exists without warranties.</li><li><strong>Actual notice</strong> is direct knowledge. <strong>Constructive notice</strong> arises through public records or visible possession.</li><li>Liens may be voluntary or involuntary, general or specific. Easements, deed restrictions, and zoning can restrict use without transferring ownership.</li></ul><div class=\"memory-box\"><strong>Do not confuse:</strong> recording protects priority and gives notice; delivery and acceptance transfer the deed.</div>","quiz":[{"q":"Which deed provides no warranties of title?","a":["General warranty deed","Quitclaim deed","Special warranty deed"],"c":1,"x":"A quitclaim deed transfers any interest the grantor has without warranties."},{"q":"Florida deeds generally require how many subscribing witnesses?","a":["One","Two","Three"],"c":1,"x":"Two subscribing witnesses are generally required."},{"q":"Knowledge supplied by the public record is:","a":["Constructive notice","Actual notice only","Puffing"],"c":0,"x":"Proper recording gives constructive notice."}]},{"title":"Legal descriptions","sub":"Metes and bounds, lot and block, and government survey","body":"<p>A legal description identifies land precisely enough to distinguish it from all other parcels. A street address is not a legal description.</p><ul class=\"study-points\"><li><strong>Metes and bounds</strong> follows directions, distances, and monuments from a point of beginning and returns to it.</li><li><strong>Lot and block</strong> refers to a lot, block, subdivision name, and recorded plat.</li><li>The government survey system uses principal meridians, base lines, townships, ranges, and sections. A township is six miles square and contains 36 sections.</li><li>One section normally contains 640 acres; a quarter section contains 160 acres.</li></ul><div class=\"formula-grid\"><div class=\"formula\"><span>Acres</span><code>square feet ÷ 43,560</code></div><div class=\"formula\"><span>Square miles</span><code>acres ÷ 640</code></div></div>","quiz":[{"q":"Which method uses a point of beginning?","a":["Metes and bounds","Lot and block","Street address"],"c":0,"x":"Metes and bounds returns to a point of beginning."},{"q":"How many sections are in a township?","a":["24","36","64"],"c":1,"x":"A standard township has 36 sections."},{"q":"How many acres are in a quarter section?","a":["40","160","320"],"c":1,"x":"One-quarter of 640 acres is 160 acres."}]},{"title":"Real estate contracts","sub":"Formation, status, remedies, and termination","body":"<p>A contract requires competent parties, lawful purpose, offer and acceptance, and consideration. Consent must be genuine.</p><ul class=\"study-points\"><li>The Statute of Frauds generally requires real estate sale contracts to be written and signed by the party against whom enforcement is sought.</li><li><strong>Void</strong> means no legal effect from the start. <strong>Voidable</strong> means one party may rescind. <strong>Unenforceable</strong> means a court will not enforce it.</li><li>An assignment transfers rights; a novation substitutes a new party or obligation and releases the original.</li><li>Contracts may end by performance, mutual rescission, breach, expiration, impossibility, or operation of law. Remedies may include damages, rescission, or specific performance when available.</li></ul><div class=\"memory-box\"><strong>Question filter:</strong> Existence, validity, and enforceability are separate questions.</div>","quiz":[{"q":"Which contract gives one party a choice to perform?","a":["Option contract","Bilateral sale contract","Deed"],"c":0,"x":"An option gives the optionee a right without an obligation to exercise it."},{"q":"Replacing a party and releasing the original is:","a":["Assignment","Novation","Estoppel"],"c":1,"x":"A novation substitutes and releases the original party or obligation."},{"q":"A contract with no legal effect from inception is:","a":["Void","Voidable","Executed"],"c":0,"x":"A void agreement has no legal effect from the start."}]},{"title":"Residential mortgages","sub":"Loan instruments, clauses, default, and foreclosure","body":"<p>The <strong>promissory note</strong> is evidence of debt. The <strong>mortgage</strong> pledges real property as security. Florida is a lien-theory state.</p><ul class=\"study-points\"><li>An acceleration clause makes the unpaid balance due after default. A due-on-sale clause may require payoff on transfer. A defeasance clause releases the security interest after repayment.</li><li>Amortization repays principal through scheduled payments. Negative amortization means the balance can increase.</li><li>Foreclosure enforces the mortgage lien. A deficiency judgment may address a remaining debt when sale proceeds are insufficient, subject to law and court order.</li><li>Discount points are prepaid interest; one point equals 1% of the loan amount.</li></ul><div class=\"formula-grid\"><div class=\"formula\"><span>LTV</span><code>loan amount ÷ property value</code></div><div class=\"formula\"><span>Points</span><code>loan amount × point percentage</code></div></div>","quiz":[{"q":"Which instrument is evidence of debt?","a":["Mortgage","Promissory note","Deed"],"c":1,"x":"The note is the promise to repay; the mortgage secures it."},{"q":"One discount point equals:","a":["1% of the loan amount","1% of the sale price","$100 in every loan"],"c":0,"x":"One point is one percent of the loan principal."},{"q":"Which clause makes the balance due after default?","a":["Acceleration","Defeasance","Habendum"],"c":0,"x":"An acceleration clause accelerates the remaining debt."}]},{"title":"Mortgage types and sources","sub":"Conventional, FHA, VA, markets, and regulation","body":"<p>Loan questions often test who insures or guarantees the loan and where mortgage funds move.</p><ul class=\"study-points\"><li>Conventional loans are not insured or guaranteed by a federal housing agency. FHA loans are insured; VA loans for eligible borrowers are guaranteed.</li><li>The <strong>primary market</strong> originates loans. The <strong>secondary market</strong> buys and sells existing mortgage loans, helping replenish lender funds.</li><li>Fixed-rate loans keep the stated interest rate; adjustable-rate mortgages can change according to an index, margin, and caps.</li><li>Truth in Lending focuses on credit cost disclosure; RESPA addresses settlement practices and prohibits certain kickbacks.</li></ul><div class=\"memory-box\"><strong>Memory hook:</strong> Primary produces; secondary recycles.</div>","quiz":[{"q":"Where are new mortgage loans originated?","a":["Primary market","Secondary market","Tax market"],"c":0,"x":"Borrowers obtain newly originated loans in the primary market."},{"q":"Which loan is federally insured?","a":["FHA loan","Conventional loan","All balloon loans"],"c":0,"x":"FHA provides mortgage insurance on qualifying loans."},{"q":"RESPA is most closely associated with:","a":["Settlement practices","Zoning variances","Deed warranties"],"c":0,"x":"RESPA regulates covered real estate settlement practices."}]},{"title":"Real estate mathematics","sub":"Commissions, area, prorations, interest, and taxes","body":"<p>Write the formula before inserting numbers, keep units visible, and estimate before calculating.</p><ul class=\"study-points\"><li>Use a 365-day or 360-day year only as the problem directs. In a proration, decide which party owns the day of closing and whether an item is paid in advance or arrears.</li><li>Convert percent to decimal before multiplying. Keep sale price, loan amount, assessed value, and taxable value separate.</li><li>A rectangle is length × width. A triangle is base × height ÷ 2. One acre is 43,560 square feet.</li></ul><div class=\"formula-grid\"><div class=\"formula\"><span>Commission</span><code>sale price × rate</code></div><div class=\"formula\"><span>Simple interest</span><code>principal × rate × time</code></div><div class=\"formula\"><span>Tax</span><code>taxable value × mills ÷ 1,000</code></div></div>","quiz":[{"q":"A $300,000 sale at 6% produces what commission?","a":["$12,000","$18,000","$24,000"],"c":1,"x":"$300,000 × .06 = $18,000."},{"q":"A lot measures 100 feet by 150 feet. Its area is:","a":["15,000 square feet","1,500 square feet","25,000 square feet"],"c":0,"x":"100 × 150 = 15,000 square feet."},{"q":"Taxable value is $240,000 at 20 mills. Tax is:","a":["$2,400","$4,800","$48,000"],"c":1,"x":"$240,000 × 20 ÷ 1,000 = $4,800."}]},{"title":"The real estate market","sub":"Supply, demand, cycles, and market analysis","body":"<p>Real estate markets are local, segmented, and slow to adjust. Every parcel is immobile and unique.</p><ul class=\"study-points\"><li>Demand responds to population, employment, income, interest rates, and credit availability. Supply responds to available land, construction costs, regulations, and development time.</li><li>A seller's market generally has limited inventory relative to demand; a buyer's market has more inventory relative to demand.</li><li>A CMA uses comparable listings and sales to help a licensee recommend a range. It is not an appraisal.</li><li>Market value assumes informed, willing parties acting without undue pressure in an open market; price is what was actually paid.</li></ul><div class=\"memory-box\"><strong>Distinguish:</strong> cost is production, price is paid, value is an opinion.</div>","quiz":[{"q":"A market with rising inventory and weak demand generally favors:","a":["Buyers","Sellers","Neither by definition"],"c":0,"x":"More supply relative to demand generally strengthens buyer leverage."},{"q":"A CMA is best described as:","a":["A broker price analysis, not an appraisal","A title search","A survey"],"c":0,"x":"A CMA supports pricing decisions but is not an appraisal."},{"q":"Which characteristic makes local real estate supply slow to adjust?","a":["Construction takes time","Land is portable","Every property is identical"],"c":0,"x":"Development and construction require time, making supply inelastic in the short run."}]},{"title":"Real estate appraisal","sub":"Value concepts and the three approaches","body":"<p>An appraisal is a supported opinion of value by a qualified appraiser. The appraiser defines the problem, collects data, applies relevant approaches, and reconciles conclusions.</p><ul class=\"study-points\"><li><strong>Sales comparison:</strong> compare with recent similar sales; adjust the comparables, not the subject.</li><li><strong>Cost-depreciation:</strong> land value + current improvement cost − accrued depreciation.</li><li><strong>Income capitalization:</strong> converts net operating income to value using a capitalization rate. Debt service and income tax are not operating expenses.</li><li>Highest and best use must be legally permissible, physically possible, financially feasible, and maximally productive.</li></ul><div class=\"formula-grid\"><div class=\"formula\"><span>Value by income</span><code>NOI ÷ cap rate</code></div><div class=\"formula\"><span>GRM value</span><code>monthly rent × GRM</code></div></div>","quiz":[{"q":"In sales comparison, adjustments are made to:","a":["The comparable sales","The subject only","The tax roll"],"c":0,"x":"Comparable sales are adjusted to resemble the subject."},{"q":"NOI is $60,000 and cap rate is 10%. Value is:","a":["$600,000","$60,000","$6,000,000"],"c":0,"x":"$60,000 ÷ .10 = $600,000."},{"q":"Which is not an operating expense in NOI?","a":["Property insurance","Management expense","Mortgage debt service"],"c":2,"x":"Debt service is excluded from NOI."}]},{"title":"Investment and business opportunity brokerage","sub":"Returns, leverage, risk, and enterprise sales","body":"<p>Investment analysis weighs income, appreciation, tax effects, liquidity, management burden, and risk. No single measure tells the whole story.</p><ul class=\"study-points\"><li>Potential gross income assumes full occupancy. Effective gross income subtracts vacancy and collection loss and adds other income. NOI subtracts operating expenses.</li><li>Capitalization rate = NOI ÷ value. All else equal, a higher required cap rate produces a lower indicated value.</li><li>Leverage uses borrowed funds. It magnifies gains when returns exceed borrowing costs and magnifies losses when they do not.</li><li>Business brokerage may involve tangible assets, inventory, contracts, goodwill, and possibly real property. Licensees should use specialists for legal, accounting, and valuation issues.</li></ul><div class=\"memory-box\"><strong>Income ladder:</strong> potential → vacancy loss → effective → expenses → NOI.</div>","quiz":[{"q":"Effective gross income minus operating expenses equals:","a":["NOI","Debt service","Capital gain"],"c":0,"x":"NOI is income after operating expenses but before financing and income taxes."},{"q":"If NOI stays constant and the cap rate rises, indicated value:","a":["Falls","Rises","Stays identical"],"c":0,"x":"Value equals NOI divided by cap rate."},{"q":"Leverage means using:","a":["Borrowed funds","Only cash","A deed restriction"],"c":0,"x":"Leverage is the use of debt to finance an investment."}]},{"title":"Taxes affecting real estate","sub":"Ad valorem tax, assessments, exemptions, and transfer taxes","body":"<p>Property taxes are ad valorem—based on value. Distinguish market value, assessed value, exemptions, taxable value, and millage.</p><ul class=\"study-points\"><li>The county property appraiser estimates value and administers exemptions. The tax collector bills and collects property taxes.</li><li>One mill equals $1 per $1,000 of taxable value. Taxable value is the figure to which the millage is applied.</li><li>Special assessments fund specific local improvements and are usually based on benefit, frontage, or another allocation method.</li><li>Florida transaction questions may include documentary stamp taxes and intangible tax; use the rates and rounding instructions given in the question.</li></ul><div class=\"memory-box\"><strong>Sequence:</strong> value → assessment limits → exemptions → taxable value → millage.</div>","quiz":[{"q":"Who values property for county tax purposes?","a":["Property appraiser","Tax collector","County clerk"],"c":0,"x":"The property appraiser determines assessed values and exemptions."},{"q":"One mill equals:","a":["$1 per $1,000","$10 per $1,000","1% of sale price"],"c":0,"x":"A mill is one-thousandth of a dollar, or $1 per $1,000."},{"q":"Special assessments usually pay for:","a":["Specific local improvements","Federal income tax","Broker commissions"],"c":0,"x":"They fund improvements benefiting particular parcels."}]},{"title":"Planning, zoning, and the environment","sub":"Public controls, private controls, and hazard awareness","body":"<p>Land use is shaped by both government regulation and private restrictions. A licensee should disclose known facts and refer technical questions to qualified experts.</p><ul class=\"study-points\"><li>A comprehensive plan guides long-range growth. Zoning implements land-use categories and development standards.</li><li>A variance provides relief from a hardship caused by the zoning rules; a special exception is a conditionally permitted use listed in the ordinance. Nonconforming use predates a zoning change.</li><li>Building codes regulate construction. Subdivision regulations govern lot layout and infrastructure. Deed restrictions are private controls.</li><li>Potential concerns include flood zones, radon, asbestos, lead-based paint, wetlands, mold, and contaminated sites. Never diagnose; disclose known material facts and recommend appropriate inspection or expertise.</li></ul><div class=\"memory-box\"><strong>Public vs. private:</strong> zoning is government; deed restrictions are private.</div>","quiz":[{"q":"Relief from a zoning hardship is usually a:","a":["Variance","Deed","Mortgage"],"c":0,"x":"A variance grants relief from strict application of zoning due to hardship."},{"q":"A lawful use that existed before a zoning change is a:","a":["Nonconforming use","Spot appraisal","Trade fixture"],"c":0,"x":"A preexisting use may continue as a lawful nonconforming use, subject to local rules."},{"q":"Which is a private land-use control?","a":["Deed restriction","Zoning ordinance","Building code"],"c":0,"x":"Deed restrictions are private covenants."}]}];
+const passedLessons = new Set();
+const lessonAnswers = modules.map(m => Array(m.quiz.length).fill(null));
+const moduleWrap = document.getElementById('modules');
+function lessonQuizMarkup(m, i) {
+  return `<div class="lesson-quiz" data-lesson="${i}"><h4>Lesson check · 3 questions</h4><p>Score 2 of 3 to complete this lesson.</p>${m.quiz.map((q, qi) => `<div class="lesson-question"><strong>${qi + 1}. ${q.q}</strong><div class="lesson-options">${q.a.map((a, ai) => `<button type="button" class="lesson-option" data-lesson="${i}" data-lq="${qi}" data-la="${ai}">${String.fromCharCode(65 + ai)}. ${a}</button>`).join('')}</div></div>`).join('')}<div class="lesson-actions"><button type="button" class="button secondary lesson-submit" data-submit-lesson="${i}">Check answers</button><p class="lesson-feedback" id="lessonFeedback${i}" aria-live="polite"></p></div></div>`;
+}
+moduleWrap.innerHTML = modules.map((m, i) => `<article class="module"><button class="module-toggle" aria-expanded="false"><span class="module-num">${i + 1}</span><span class="module-title"><strong>${m.title}</strong><small>${m.sub}</small><span class="lesson-status" id="lessonStatus${i}">Not passed</span></span><span class="chev" aria-hidden="true">⌄</span></button><div class="module-body">${m.body}${lessonQuizMarkup(m, i)}</div></article>`).join('');
+function updateCourseProgress() {
+  document.getElementById('studyProgressText').textContent = `${passedLessons.size} of ${modules.length}`;
+  document.getElementById('studyProgress').style.width = `${passedLessons.size / modules.length * 100}%`;
+}
+moduleWrap.addEventListener('click', e => {
+  const option = e.target.closest('.lesson-option');
+  if (option) {
+    const li = Number(option.dataset.lesson), qi = Number(option.dataset.lq), ai = Number(option.dataset.la);
+    lessonAnswers[li][qi] = ai;
+    option.parentElement.querySelectorAll('.lesson-option').forEach(b => b.classList.toggle('selected', b === option));
+    return;
+  }
+  const submit = e.target.closest('[data-submit-lesson]');
+  if (submit) {
+    const i = Number(submit.dataset.submitLesson);
+    const picked = lessonAnswers[i];
+    const feedback = document.getElementById(`lessonFeedback${i}`);
+    if (picked.some(a => a === null)) {
+      feedback.className = 'lesson-feedback bad'; feedback.textContent = 'Answer all 3 questions first.'; return;
+    }
+    const score = modules[i].quiz.reduce((n, q, qi) => n + (picked[qi] === q.c ? 1 : 0), 0);
+    const passed = score >= 2;
+    feedback.className = `lesson-feedback ${passed ? 'good' : 'bad'}`;
+    feedback.textContent = passed ? `${score}/3 — lesson complete.` : `${score}/3 — review the lesson and try again.`;
+    modules[i].quiz.forEach((q, qi) => {
+      const row = submit.closest('.lesson-quiz').querySelectorAll('.lesson-question')[qi];
+      row.querySelectorAll('.lesson-option').forEach((b, ai) => {
+        b.style.borderColor = ai === q.c ? 'var(--good)' : (ai === picked[qi] ? 'var(--bad)' : 'var(--line)');
+      });
+    });
+    if (passed) {
+      passedLessons.add(i);
+      const status = document.getElementById(`lessonStatus${i}`);
+      status.classList.add('passed'); status.textContent = 'Passed ✓';
+      updateCourseProgress();
+    }
+    return;
+  }
+  const toggle = e.target.closest('.module-toggle');
+  if (!toggle) return;
+  const module = toggle.parentElement;
+  module.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', module.classList.contains('open'));
+});
+
+const flashcards = [
+  ['Law', 'Chapter 475, Part I', 'Florida’s primary statute governing real estate brokers, sales associates, and schools.'],
+  ['Law', 'Chapter 61J2', 'Florida Administrative Code rules of the Florida Real Estate Commission.'],
+  ['Law', 'DBPR', 'Department of Business and Professional Regulation—the state department overseeing professional licensing.'],
+  ['Law', 'FREC', 'Florida Real Estate Commission—the body that adopts rules, sets education standards, and disciplines real estate licensees.'],
+  ['Law', 'Broker associate', 'A person licensed as a broker who chooses to work under another broker.'],
+  ['Relationships', 'Transaction broker', 'A broker who provides limited representation to a buyer, seller, or both, without fiduciary representation.'],
+  ['Relationships', 'Single agent', 'A broker who represents one party as a fiduciary and owes duties such as loyalty, obedience, confidentiality, and full disclosure.'],
+  ['Relationships', 'No brokerage relationship', 'The broker does not represent the customer, but still must deal honestly, disclose known material residential facts not readily observable, and account for funds.'],
+  ['Relationships', 'Limited confidentiality', 'A transaction-broker duty that restricts sharing certain price, motivation, and financing information unless authorized.'],
+  ['Brokerage', 'Commingling', 'Mixing a broker’s personal or business funds with money held for others.'],
+  ['Brokerage', 'Conversion', 'Unauthorized use or control of money or property belonging to another.'],
+  ['Brokerage', 'Blind advertisement', 'An ad that fails to reveal the advertiser is a real estate brokerage or licensee as required.'],
+  ['Brokerage', 'Price fixing', 'An antitrust violation in which competitors agree on commission rates or other prices.'],
+  ['Property', 'Fee simple estate', 'The broadest private ownership interest, potentially lasting forever and transferable or inheritable.'],
+  ['Property', 'Life estate', 'A freehold estate measured by the lifetime of a named person.'],
+  ['Property', 'Tenancy in common', 'Co-ownership without survivorship; owners may hold unequal shares.'],
+  ['Property', 'Tenancy by the entireties', 'A form of ownership available to married spouses that includes survivorship.'],
+  ['Property', 'Easement appurtenant', 'A right that benefits one parcel and burdens another parcel.'],
+  ['Title', 'Deed', 'The written instrument used to transfer legal title to real property.'],
+  ['Title', 'Actual notice', 'Direct knowledge of a fact, such as seeing or being told about it.'],
+  ['Title', 'Constructive notice', 'Notice the law presumes from properly recorded documents or visible possession.'],
+  ['Legal descriptions', 'Lot and block', 'A legal description that refers to a lot within a recorded subdivision plat.'],
+  ['Legal descriptions', 'Metes and bounds', 'A legal description using directions, distances, and monuments around a parcel.'],
+  ['Legal descriptions', 'Section', 'One of 36 divisions in a township; normally 640 acres.'],
+  ['Contracts', 'Statute of Frauds', 'A law requiring certain contracts—including most real estate sale contracts—to be in writing to be enforceable.'],
+  ['Contracts', 'Voidable contract', 'A contract that one party may choose to rescind because of a legal defect.'],
+  ['Contracts', 'Novation', 'Substitution of a new party or obligation with release of the original party or obligation.'],
+  ['Contracts', 'Option contract', 'A contract giving the optionee the right, but not the obligation, to act within a stated period.'],
+  ['Finance', 'Promissory note', 'Evidence of the borrower’s debt and promise to repay.'],
+  ['Finance', 'Mortgage', 'A security instrument that pledges real property as collateral for a debt.'],
+  ['Finance', 'Acceleration clause', 'A clause allowing the lender to declare the full unpaid balance due after default.'],
+  ['Finance', 'Primary mortgage market', 'The market where lenders originate mortgage loans to borrowers.'],
+  ['Finance', 'Secondary mortgage market', 'The market where existing mortgage loans are bought and sold.'],
+  ['Valuation', 'Sales comparison approach', 'An appraisal approach that compares the subject property with similar recent sales.'],
+  ['Valuation', 'Net operating income', 'Effective gross income minus operating expenses, before debt service and income taxes.'],
+  ['Valuation', 'Capitalization rate', 'The relationship between NOI and value: cap rate = NOI ÷ value.'],
+  ['Math', 'One mill', '$1 of property tax for each $1,000 of taxable value.'],
+  ['Math', 'LTV', 'Loan amount divided by property value, expressed as a percentage.']
+];
+let activeCards = flashcards.slice();
+let cardIndex = 0;
+const category = document.getElementById('category');
+[...new Set(flashcards.map(c => c[0]))].sort().forEach(cat => category.insertAdjacentHTML('beforeend', `<option value="${cat}">${cat}</option>`));
+function renderCard() {
+  const card = activeCards[cardIndex];
+  document.getElementById('cardTopic').textContent = `Section · ${card[0]}`;
+  document.getElementById('cardTerm').textContent = card[1];
+  document.getElementById('cardAnswer').textContent = card[2];
+  document.getElementById('cardPosition').textContent = `${cardIndex + 1} of ${activeCards.length}`;
+  document.getElementById('cardCounter').textContent = `${cardIndex + 1} / ${activeCards.length}`;
+}
+function changeCard(step) { cardIndex = (cardIndex + step + activeCards.length) % activeCards.length; renderCard(); }
+const flashcardEl = document.getElementById('flashcard');
+let touchStartX = 0;
+let touchStartY = 0;
+flashcardEl.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].clientX;
+  touchStartY = e.changedTouches[0].clientY;
+}, { passive: true });
+flashcardEl.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) < 48 || Math.abs(dx) <= Math.abs(dy)) return;
+  changeCard(dx < 0 ? 1 : -1);
+}, { passive: true });
+document.getElementById('cardNext').addEventListener('click', () => changeCard(1));
+document.getElementById('prevCard').addEventListener('click', () => changeCard(-1));
+document.getElementById('nextCard').addEventListener('click', () => changeCard(1));
+category.addEventListener('change', () => { activeCards = category.value === 'All' ? flashcards.slice() : flashcards.filter(c => c[0] === category.value); cardIndex = 0; renderCard(); });
+document.getElementById('shuffleCards').addEventListener('click', () => { activeCards = [...activeCards].sort(() => Math.random() - .5); cardIndex = 0; renderCard(); });
+document.addEventListener('keydown', e => { if (!document.getElementById('flashcardsView').classList.contains('active')) return; if (e.key === 'ArrowRight') changeCard(1); if (e.key === 'ArrowLeft') changeCard(-1); });
+renderCard();
+
+const lessonQuizBank = modules.flatMap(m => m.quiz.map(q => ({...q})));
+const challengeQuestions = [{"q":"A sales associate closes a transaction while registered with Broker A. The seller offers the associate a cash bonus. What should the associate do?","a":["Accept it after closing","Have the compensation paid through Broker A","Accept it if disclosed to the buyer","Deposit it in escrow"],"c":1,"x":"A sales associate may receive compensation only through the registered employer broker."},{"q":"Which statement best describes a broker associate?","a":["A sales associate with two employers","A broker who works under another broker","An unlicensed brokerage employee","A broker licensed only for referrals"],"c":1,"x":"A broker associate holds a broker license but works in another broker’s employ."},{"q":"Which state department houses the Division of Real Estate?","a":["Department of State","DBPR","Department of Revenue","Florida Housing Finance Corporation"],"c":1,"x":"The Division of Real Estate is part of the Department of Business and Professional Regulation."},{"q":"Which FREC member category does not require a real estate license?","a":["Consumer member","Broker member","Broker associate member","Sales associate member"],"c":0,"x":"FREC includes two consumer members who have not been brokers or sales associates."},{"q":"A sales associate fails to complete required post-license education before the first renewal. The initial license will generally:","a":["Automatically become a broker license","Become null and void","Remain active with a fine only","Convert to voluntary inactive"],"c":1,"x":"Failure to complete required post-license education before the first renewal causes the initial license to become null and void."},{"q":"Which duty belongs to both single agents and transaction brokers?","a":["Undivided loyalty","Obedience","Accounting for all funds","Full confidentiality without limits"],"c":2,"x":"Both relationships require accounting for all funds."},{"q":"A licensee knows the roof of a listed home leaks during heavy rain, but the damage is hidden. The licensee should:","a":["Disclose the known material fact","Wait for the buyer to discover it","Say nothing because caveat emptor always applies","Disclose only after closing"],"c":0,"x":"Known facts materially affecting residential value and not readily observable must be disclosed."},{"q":"An online ad names the sales associate but omits the registered brokerage identity. This is most likely:","a":["A blind advertisement","A net listing","A special assessment","Acceptable institutional advertising"],"c":0,"x":"A blind ad fails to reveal the brokerage identity as required."},{"q":"A broker receives an escrow deposit and the parties later dispute who is entitled to it. The broker should:","a":["Choose the party with the stronger story","Follow Florida notice and settlement procedures","Split it equally without permission","Pay it to the sales associate"],"c":1,"x":"The broker must use the prescribed escrow dispute procedures rather than decide ownership unilaterally."},{"q":"Several brokers agree not to cooperate with a new discount brokerage. This conduct may be:","a":["A group boycott","A variance","A novation","A legal steering practice"],"c":0,"x":"A concerted refusal to deal can be an illegal group boycott."},{"q":"A licensee urges owners to sell by claiming a protected class is moving into the area and values will fall. This is:","a":["Redlining","Blockbusting","Puffing","Steering"],"c":1,"x":"Blockbusting uses fear of demographic change to induce owners to sell."},{"q":"Which housing advertisement is most likely prohibited?","a":["Two-bedroom home near transit","No children allowed","First-floor unit","Large fenced yard"],"c":1,"x":"Advertising cannot express a preference against families with children in covered housing."},{"q":"A tenant installs removable display cases for a retail business. These are most likely:","a":["Trade fixtures","Appurtenant easements","Emblements","Deed restrictions"],"c":0,"x":"Business items attached by a tenant are trade fixtures and are generally removable on time."},{"q":"A tenant remains after a lease expires without the landlord’s consent. The tenant holds:","a":["An estate at sufferance","An estate for years","A life estate","Fee simple"],"c":0,"x":"A holdover tenant without consent has an estate at sufferance."},{"q":"An easement benefits Parcel X and runs across Parcel Y. Parcel Y is the:","a":["Dominant tenement","Servient tenement","Life estate","Reversion"],"c":1,"x":"The parcel burdened by an appurtenant easement is the servient tenement."},{"q":"Which act is essential to make a signed deed effective between grantor and grantee?","a":["Recording only","Delivery and acceptance","A mortgage application","A zoning hearing"],"c":1,"x":"A deed must be delivered by the grantor and accepted by the grantee."},{"q":"Which deed generally provides the broadest warranties?","a":["Quitclaim deed","General warranty deed","Tax deed","Special warranty deed"],"c":1,"x":"A general warranty deed provides broad covenants extending through the chain of title."},{"q":"Which lien generally has priority regardless of when other liens were recorded?","a":["Property tax lien","Later judgment lien","Broker’s lien","Unrecorded personal loan"],"c":0,"x":"Property tax liens generally take priority over other liens."},{"q":"A buyer physically sees a tenant occupying a property before purchase. That observation is a form of:","a":["Actual notice","No notice","Only constructive notice by recording","Subrogation"],"c":0,"x":"Direct observation gives actual notice."},{"q":"A metes-and-bounds description should end at:","a":["The nearest section line","The point of beginning","The courthouse","A street address"],"c":1,"x":"The boundary calls should close by returning to the point of beginning."},{"q":"The north half of a section contains how many acres?","a":["80","160","320","640"],"c":2,"x":"A section is 640 acres; one-half is 320 acres."},{"q":"A standard township measures:","a":["One mile square","Six miles square","Thirty-six miles square","Sixteen miles square"],"c":1,"x":"A township is six miles on each side and contains 36 square miles."},{"q":"Which is required for a valid contract?","a":["Lawful purpose","A notary in every case","Recording","A broker as a party"],"c":0,"x":"A valid contract needs competent parties, lawful purpose, offer and acceptance, and consideration."},{"q":"A promise exchanged for a completed act is characteristic of a:","a":["Unilateral contract","Bilateral contract only","Void contract","Deed restriction"],"c":0,"x":"A unilateral contract is accepted through performance."},{"q":"A buyer transfers contractual rights to another buyer but remains liable unless released. This is generally:","a":["An assignment","A novation","A rescission","A foreclosure"],"c":0,"x":"An assignment transfers rights; it does not necessarily release the original party."},{"q":"Why are most real estate sale contracts written?","a":["To satisfy the Statute of Frauds","To create an easement by prescription","To avoid all closing costs","To replace consideration"],"c":0,"x":"The Statute of Frauds generally requires sale contracts to be written and signed for enforcement."},{"q":"Which statement is correct?","a":["The mortgage is evidence of debt","The note is evidence of debt and the mortgage is security","The deed is the borrower’s promise to pay","The appraisal creates the lien"],"c":1,"x":"The note evidences the debt; the mortgage secures repayment with real property."},{"q":"Which clause may require payoff when mortgaged property is transferred?","a":["Due-on-sale clause","Defeasance clause","Habendum clause","Prepayment privilege"],"c":0,"x":"A due-on-sale clause permits the lender to call the debt upon transfer."},{"q":"A fully amortized loan is designed so that scheduled payments:","a":["Pay the debt to zero by maturity","Never reduce principal","Increase the balance each month","Pay interest only forever"],"c":0,"x":"Full amortization retires principal and interest by the maturity date."},{"q":"A home is worth $400,000 and the loan is $320,000. What is the LTV?","a":["64%","75%","80%","125%"],"c":2,"x":"$320,000 ÷ $400,000 = 80%."},{"q":"A borrower pays two discount points on a $250,000 loan. What is the cost?","a":["$2,500","$5,000","$7,500","$25,000"],"c":1,"x":"Two points equal 2% of $250,000, or $5,000."},{"q":"Which organization activity occurs in the secondary mortgage market?","a":["A bank makes a new loan to a buyer","An existing mortgage is sold to an investor","A buyer applies for preapproval","A seller signs a deed"],"c":1,"x":"The secondary market buys and sells existing mortgage loans."},{"q":"An adjustable-rate mortgage changes according to an index plus a:","a":["Margin","Millage","Capitalization rate","Commission split"],"c":0,"x":"ARM rate changes commonly use an index plus the lender’s margin, subject to caps."},{"q":"A property sells for $480,000 at a 5% commission. The total commission is:","a":["$19,200","$24,000","$28,800","$96,000"],"c":1,"x":"$480,000 × .05 = $24,000."},{"q":"A parcel contains 87,120 square feet. How many acres is that?","a":["1 acre","2 acres","4 acres","20 acres"],"c":1,"x":"87,120 ÷ 43,560 = 2 acres."},{"q":"Annual rent is $24,000. Using a 365-day year, the daily rate rounded to cents is closest to:","a":["$65.75","$80.00","$657.53","$2,000"],"c":0,"x":"$24,000 ÷ 365 is approximately $65.75 per day."},{"q":"The appraisal principle that a buyer will not pay more than the cost of a comparable substitute is:","a":["Substitution","Contribution","Regression","Assemblage"],"c":0,"x":"Substitution underlies the sales comparison approach."},{"q":"Loss in value from an outdated floor plan is most likely:","a":["Functional obsolescence","Physical deterioration only","Appreciation","Plottage"],"c":0,"x":"An outdated design is functional obsolescence."},{"q":"Monthly market rent is $2,000 and the applicable GRM is 150. Indicated value is:","a":["$13,333","$150,000","$300,000","$3,000,000"],"c":2,"x":"$2,000 × 150 = $300,000."},{"q":"An investment sells for $800,000 and produces $64,000 NOI. The cap rate is:","a":["6%","8%","12.5%","80%"],"c":1,"x":"$64,000 ÷ $800,000 = 8%."},{"q":"Potential gross income is $120,000, vacancy loss is $6,000, other income is $3,000, and operating expenses are $42,000. NOI is:","a":["$69,000","$75,000","$81,000","$117,000"],"c":1,"x":"Effective gross income is $117,000; minus $42,000 equals $75,000 NOI."},{"q":"Assessed value is $300,000, exemptions total $50,000, and the rate is 18 mills. Property tax is:","a":["$4,500","$5,400","$45,000","$54,000"],"c":0,"x":"Taxable value is $250,000; $250,000 × 18 ÷ 1,000 = $4,500."},{"q":"A use permitted by a zoning ordinance only after meeting stated conditions is generally a:","a":["Special exception","Variance from hardship","Deed warranty","Tax exemption"],"c":0,"x":"A special exception is a conditionally permitted use identified in the zoning ordinance."}];
+const questionBank = lessonQuizBank.concat(challengeQuestions);
+let quizQuestions = [], answers = [], qIndex = 0, quizTimer = null, secondsLeft = 0, quizTimed = true;
+const quizStart = document.getElementById('quizStart'), quizPanel = document.getElementById('quizPanel'), results = document.getElementById('results');
+function shuffled(arr) { return [...arr].sort(() => Math.random() - .5); }
+function formatTime(s) { const m = Math.floor(s / 60); const sec = s % 60; return `${m}:${String(sec).padStart(2, '0')}`; }
+function renderTimer() { document.getElementById('timer').textContent = quizTimed ? formatTime(secondsLeft) : 'Untimed'; }
+function startQuiz() {
+  const length = Number(document.querySelector('input[name="length"]:checked').value);
+  quizQuestions = shuffled(questionBank).slice(0, length);
+  answers = Array(length).fill(null); qIndex = 0; quizTimed = document.getElementById('timed').checked;
+  secondsLeft = Math.round(length * 2.1 * 60);
+  quizStart.hidden = true; results.hidden = true; quizPanel.hidden = false;
+  clearInterval(quizTimer);
+  if (quizTimed) quizTimer = setInterval(() => { secondsLeft--; renderTimer(); if (secondsLeft <= 0) finishQuiz(true); }, 1000);
+  renderQuestion();
+}
+function renderQuestion() {
+  const item = quizQuestions[qIndex];
+  document.getElementById('questionCount').textContent = `Question ${qIndex + 1} of ${quizQuestions.length}`;
+  document.getElementById('questionProgress').style.width = `${(qIndex + 1) / quizQuestions.length * 100}%`;
+  document.getElementById('questionText').textContent = item.q;
+  document.getElementById('answers').innerHTML = item.a.map((text, i) => `<button class="answer ${answers[qIndex] === i ? 'selected' : ''}" data-answer="${i}" aria-pressed="${answers[qIndex] === i}"><span class="letter">${String.fromCharCode(65 + i)}</span><span>${text}</span></button>`).join('');
+  document.getElementById('questionDots').innerHTML = quizQuestions.map((_, i) => `<button class="dot ${answers[i] !== null ? 'done' : ''} ${i === qIndex ? 'here' : ''}" data-q="${i}" aria-label="Go to question ${i + 1}">${i + 1}</button>`).join('');
+  document.getElementById('prevQuestion').disabled = qIndex === 0;
+  document.getElementById('nextQuestion').textContent = qIndex === quizQuestions.length - 1 ? 'Finish test' : 'Next';
+  renderTimer();
+}
+document.getElementById('startQuiz').addEventListener('click', startQuiz);
+document.getElementById('answers').addEventListener('click', e => { const btn = e.target.closest('[data-answer]'); if (!btn) return; answers[qIndex] = Number(btn.dataset.answer); renderQuestion(); });
+document.getElementById('questionDots').addEventListener('click', e => { const dot = e.target.closest('[data-q]'); if (!dot) return; qIndex = Number(dot.dataset.q); renderQuestion(); });
+document.getElementById('prevQuestion').addEventListener('click', () => { if (qIndex > 0) { qIndex--; renderQuestion(); } });
+document.getElementById('nextQuestion').addEventListener('click', () => { if (qIndex < quizQuestions.length - 1) { qIndex++; renderQuestion(); } else finishQuiz(false); });
+function finishQuiz(timedOut) {
+  clearInterval(quizTimer);
+  quizPanel.hidden = true; results.hidden = false;
+  const score = quizQuestions.reduce((sum, q, i) => sum + (answers[i] === q.c ? 1 : 0), 0);
+  const pct = Math.round(score / quizQuestions.length * 100);
+  const passed = pct >= 75;
+  const fullMock = quizQuestions.length === 100;
+  const resultHeading = passed ? (fullMock ? 'Mock exam passed' : 'Passing pace') : (fullMock ? 'Mock exam not passed' : 'Keep sharpening');
+  const standard = fullMock ? 'You need 75 correct answers to pass this 100-question mock.' : 'A score of 75% or higher is passing pace.';
+  results.innerHTML = `<div class="score-ring" style="--score:${pct}%"><strong>${pct}%</strong></div><div class="result-title"><h2>${resultHeading}</h2><p>${timedOut ? 'Time expired. ' : ''}You answered ${score} of ${quizQuestions.length} correctly. ${standard}</p><button class="button" id="retake">Choose another test</button></div><div class="review-list">${quizQuestions.map((q, i) => { const ok = answers[i] === q.c; const yours = answers[i] === null ? 'No answer' : q.a[answers[i]]; return `<div class="review-item ${ok ? 'correct' : 'wrong'}"><strong>${i + 1}. ${q.q}</strong><p>Your answer: ${yours}</p>${ok ? '' : `<p>Correct answer: ${q.a[q.c]}</p>`}<p>${q.x}</p></div>`; }).join('')}</div>`;
+  document.getElementById('retake').addEventListener('click', () => { results.hidden = true; quizStart.hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
