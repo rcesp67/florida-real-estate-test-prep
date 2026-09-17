@@ -214,6 +214,12 @@
     .lesson-options { display: grid; gap: 7px; }
     .lesson-option { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px; background: transparent; color: inherit; text-align: left; cursor: pointer; }
     .lesson-option.selected { background: var(--teal-soft); border-color: var(--teal); }
+    .lesson-option.correct { background: color-mix(in srgb, var(--good) 14%, var(--surface)); border-color: var(--good); }
+    .lesson-option.wrong { background: color-mix(in srgb, var(--bad) 15%, var(--surface)); border-color: var(--bad); }
+    .lesson-explanation { margin: 10px 0 0; padding: 10px 12px; border-radius: 9px; background: var(--surface-2); color: var(--muted); font-size: .9rem; }
+    .lesson-explanation strong { display: inline; margin: 0; }
+    .lesson-explanation.correct strong { color: var(--good); }
+    .lesson-explanation.wrong strong { color: var(--bad); }
     .lesson-option:focus-visible, .lesson-submit:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
     .lesson-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
     .lesson-feedback { margin: 0; font-weight: 600; }
@@ -457,7 +463,7 @@
       </div>
 
       <div class="source-box">
-        <p><strong>Use this as review, not as a substitute for your required pre-license course.</strong> Exam format and topic weights follow Florida DBPR's Sales Associate Candidate Information Booklet, effective January 2025. Laws and rules can change.</p>
+        <p><strong>Independent study companion.</strong> This site is not accredited or state-approved, does not replace Florida’s required pre-license education, and is not affiliated with or endorsed by DBPR, FREC, or the exam provider. It does not guarantee a passing score or licensure. Exam format and topic weights follow Florida DBPR’s Sales Associate Candidate Information Booklet, effective January 2025; laws, rules, and exam requirements can change, so confirm current information with the official sources below.</p>
         <div class="source-links">
           <a href="https://www2.myfloridalicense.com/servop/testing/documents/RE_sales_cibs.pdf" target="_blank" rel="noopener">Official candidate booklet</a>
           <a href="http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0475/0475.html" target="_blank" rel="noopener">Florida Statutes, Chapter 475</a>
@@ -607,9 +613,20 @@ moduleWrap.addEventListener('click', e => {
     feedback.textContent = passed ? `${score}/3 — lesson complete.` : `${score}/3 — review the lesson and try again.`;
     modules[i].quiz.forEach((q, qi) => {
       const row = submit.closest('.lesson-quiz').querySelectorAll('.lesson-question')[qi];
+      const isCorrect = picked[qi] === q.c;
       row.querySelectorAll('.lesson-option').forEach((b, ai) => {
-        b.style.borderColor = ai === q.c ? 'var(--good)' : (ai === picked[qi] ? 'var(--bad)' : 'var(--line)');
+        b.classList.toggle('correct', ai === q.c);
+        b.classList.toggle('wrong', ai === picked[qi] && !isCorrect);
       });
+      let explanation = row.querySelector('.lesson-explanation');
+      if (!explanation) {
+        explanation = document.createElement('p');
+        row.appendChild(explanation);
+      }
+      explanation.className = `lesson-explanation ${isCorrect ? 'correct' : 'wrong'}`;
+      explanation.innerHTML = isCorrect
+        ? `<strong>Correct.</strong> ${q.x}`
+        : `<strong>Not quite.</strong> Correct answer: ${q.a[q.c]}. ${q.x}`;
     });
     if (passed) {
       passedLessons.add(i);
